@@ -2,10 +2,8 @@ import { useState } from "react"
 import { CountryCard } from "./CountryCard";
 import { getCountryByName } from "../api/getCountryByName";
 import { Error } from "./Error";
-import { newReliclogs } from "../api/newReliclogs";
 
 export const Search = () => {
-
     const [ countries, setCountries ] = useState([]);
     const [ inputValue, setInputValue ] = useState("");
 
@@ -19,10 +17,7 @@ export const Search = () => {
         const data = await getCountryByName(inputValue);
         setCountries(data);
         setInputValue('');
-        data.forEach( async cty => {
-            await newReliclogs(`Country Searched: ${ cty.name.common }`);
-        });
-    };    
+    };
 
     return(
         <>
@@ -38,7 +33,6 @@ export const Search = () => {
                             autoComplete="off"
                             value={ inputValue }
                             onChange={ onInputChange }
-
                         />
                         <button className="btn btn-outline-primary mt-2">
                             search
@@ -51,7 +45,7 @@ export const Search = () => {
                     <hr />
                     {
                         countries ? countries.map(cty => (
-                            <CountryCard key={ cty.population } cty={ cty } />
+                            <CountryCard key={ cty.population} cty={ cty } />
                         )) : <Error />
                     }
                 </div>
@@ -59,3 +53,5 @@ export const Search = () => {
         </>
     )
 }
+
+module.exports = Search;
